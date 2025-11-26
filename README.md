@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bot Monitoring Dashboard
+
+A Next.js monitoring dashboard to display real-time and historical bot execution data.
+
+## Features
+
+- View list of all bot executions with status, strategy, and progress
+- Detailed execution view showing wallet-level data
+- Capital tracking (before/after) for each wallet
+- Status indicators for executions and wallets
+- Clean, responsive UI with Tailwind CSS
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Axios for API requests
 
 ## Getting Started
 
-First, run the development server:
+### Installation
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```
+NEXT_PUBLIC_API_URL=https://api.aggtrade.xyz/tracking
+```
+
+### Development
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a production build:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Start Production Server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── page.tsx                    # Home: List of executions
+│   ├── execution/[id]/page.tsx     # Execution details
+│   └── layout.tsx
+├── lib/
+│   ├── api.ts                      # API client with axios
+│   └── types.ts                    # TypeScript interfaces
+└── components/                      # Future components
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoints Used
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `GET /bot/executions?limit=50&offset=0` - List all executions
+- `GET /bot/execution/:execution_id` - Get execution details
+- `GET /bot/portfolio/:execution_id/:wallet_address` - Get portfolio snapshots
+
+## Features Breakdown
+
+### Home Page (`/`)
+- Table view of all bot executions
+- Shows execution ID, strategy, wallet progress, volume, status, and start time
+- Click on any execution to view details
+
+### Execution Details Page (`/execution/[id]`)
+- Summary cards showing strategy, total wallets, volume, and status
+- Detailed wallet table with:
+  - Wallet index and address
+  - Starting token
+  - Number of swaps completed
+  - Capital before (first snapshot)
+  - Capital after (last snapshot)
+  - Dollar and percentage change
+  - Wallet status
+
+## Deployment
+
+### Deploy to Vercel
+
+1. Push your code to GitHub
+2. Import project in Vercel
+3. Set environment variable:
+   - `NEXT_PUBLIC_API_URL=https://api.aggtrade.xyz/tracking`
+4. Deploy
+
+Or use Vercel CLI:
+
+```bash
+vercel deploy
+```
+
+## Future Enhancements
+
+- Auto-refresh for running executions
+- Search/filter executions by strategy or date
+- Pagination for execution list
+- Export to CSV
+- Detailed swap history per wallet
+- Charts and graphs for capital tracking
