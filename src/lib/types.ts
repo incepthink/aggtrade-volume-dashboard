@@ -49,9 +49,11 @@ export interface SushiSwap {
   token_from_address: string
   token_from_amount: string
   token_from_symbol: string
+  token_from_logo: string
   token_to_address: string
   token_to_amount: string
   token_to_symbol: string
+  token_to_logo: string
   usd_volume: string
   timestamp: string
   status: string

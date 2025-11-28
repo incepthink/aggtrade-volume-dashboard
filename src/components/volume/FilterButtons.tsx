@@ -1,0 +1,45 @@
+import { Button, Stack } from "@mui/material";
+
+interface FilterButtonsProps {
+  activeFilter: "CLASSIC" | "LIMIT_ORDER" | undefined;
+  onFilterChange: (filter: "CLASSIC" | "LIMIT_ORDER" | undefined) => void;
+}
+
+export default function FilterButtons({ activeFilter, onFilterChange }: FilterButtonsProps) {
+  const buttonStyle = (isActive: boolean) => ({
+    textTransform: "none",
+    bgcolor: isActive ? "#00F5E0" : "transparent",
+    color: isActive ? "#050C19" : "#00F5E0",
+    borderColor: "#00F5E0",
+    "&:hover": {
+      bgcolor: isActive ? "#00d4c4" : "rgba(0, 245, 224, 0.1)",
+      borderColor: "#00F5E0",
+    },
+  });
+
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button
+        variant={activeFilter === undefined ? "contained" : "outlined"}
+        onClick={() => onFilterChange(undefined)}
+        sx={buttonStyle(activeFilter === undefined)}
+      >
+        All Swaps
+      </Button>
+      <Button
+        variant={activeFilter === "CLASSIC" ? "contained" : "outlined"}
+        onClick={() => onFilterChange("CLASSIC")}
+        sx={buttonStyle(activeFilter === "CLASSIC")}
+      >
+        Classic Swaps
+      </Button>
+      <Button
+        variant={activeFilter === "LIMIT_ORDER" ? "contained" : "outlined"}
+        onClick={() => onFilterChange("LIMIT_ORDER")}
+        sx={buttonStyle(activeFilter === "LIMIT_ORDER")}
+      >
+        Limit Orders
+      </Button>
+    </Stack>
+  );
+}

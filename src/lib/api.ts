@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { BotExecution, ExecutionDetails, PortfolioSnapshot, DashboardResponse, VolumeOverTimeResponse } from './types'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://api.aggtrade.xyz/tracking'
+const API_BASE = 'https://api.aggtrade.xyz/tracking'
 
 const api = axios.create({
   baseURL: API_BASE,
