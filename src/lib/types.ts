@@ -90,3 +90,15 @@ export interface VolumeOverTimeResponse {
   interval: string
   data: VolumeOverTimeData[]
 }
+
+export interface TopWallet {
+  wallet_address: string
+  total_volume: number
+  swap_count: number
+  classic_count: number
+  limit_order_count: number
+}
+
+export interface TopWalletsResponse {
+  wallets: TopWallet[]
+}

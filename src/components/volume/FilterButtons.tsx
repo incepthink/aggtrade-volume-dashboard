@@ -3,9 +3,11 @@ import { Button, Stack } from "@mui/material";
 interface FilterButtonsProps {
   activeFilter: "CLASSIC" | "LIMIT_ORDER" | undefined;
   onFilterChange: (filter: "CLASSIC" | "LIMIT_ORDER" | undefined) => void;
+  showTopWallets: boolean;
+  onTopWalletsClick: () => void;
 }
 
-export default function FilterButtons({ activeFilter, onFilterChange }: FilterButtonsProps) {
+export default function FilterButtons({ activeFilter, onFilterChange, showTopWallets, onTopWalletsClick }: FilterButtonsProps) {
   const buttonStyle = (isActive: boolean) => ({
     textTransform: "none",
     bgcolor: isActive ? "#00F5E0" : "transparent",
@@ -39,6 +41,13 @@ export default function FilterButtons({ activeFilter, onFilterChange }: FilterBu
         sx={buttonStyle(activeFilter === "LIMIT_ORDER")}
       >
         Limit Orders
+      </Button>
+      <Button
+        variant={showTopWallets ? "contained" : "outlined"}
+        onClick={onTopWalletsClick}
+        sx={buttonStyle(showTopWallets)}
+      >
+        Top Wallets
       </Button>
     </Stack>
   );
