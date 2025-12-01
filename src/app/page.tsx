@@ -162,7 +162,7 @@ export default function VolumePage() {
               mb: 2,
             }}
           >
-            SushiSwap Volume Dashboard
+            AggTrade Volume Dashboard
           </Typography>
 
           <FilterButtons
