@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import {
   Box,
   Table,
@@ -51,6 +54,16 @@ function getRelativeTime(timestamp: string): string {
 }
 
 export default function SwapsTable({ swaps, swapType }: SwapsTableProps) {
+  const [, setCurrentTime] = useState(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 30000); // Update every 30 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <GlowBox>
       <TableContainer>
