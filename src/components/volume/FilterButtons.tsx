@@ -7,7 +7,12 @@ interface FilterButtonsProps {
   onTopWalletsClick: () => void;
 }
 
-export default function FilterButtons({ activeFilter, onFilterChange, showTopWallets, onTopWalletsClick }: FilterButtonsProps) {
+export default function FilterButtons({
+  activeFilter,
+  onFilterChange,
+  showTopWallets,
+  onTopWalletsClick,
+}: FilterButtonsProps) {
   const buttonStyle = (isActive: boolean) => ({
     textTransform: "none",
     bgcolor: isActive ? "#00F5E0" : "transparent",
@@ -19,29 +24,36 @@ export default function FilterButtons({ activeFilter, onFilterChange, showTopWal
     },
   });
 
+  // Swap filters should only be active when NOT in Top Wallets mode
+  const isFilterActive = (filter: "CLASSIC" | "LIMIT_ORDER" | undefined) =>
+    !showTopWallets && activeFilter === filter;
+
   return (
     <Stack direction="row" spacing={2}>
       <Button
-        variant={activeFilter === undefined ? "contained" : "outlined"}
+        variant={isFilterActive(undefined) ? "contained" : "outlined"}
         onClick={() => onFilterChange(undefined)}
-        sx={buttonStyle(activeFilter === undefined)}
+        sx={buttonStyle(isFilterActive(undefined))}
       >
         All Swaps
       </Button>
+
       <Button
-        variant={activeFilter === "CLASSIC" ? "contained" : "outlined"}
+        variant={isFilterActive("CLASSIC") ? "contained" : "outlined"}
         onClick={() => onFilterChange("CLASSIC")}
-        sx={buttonStyle(activeFilter === "CLASSIC")}
+        sx={buttonStyle(isFilterActive("CLASSIC"))}
       >
         Classic Swaps
       </Button>
+
       <Button
-        variant={activeFilter === "LIMIT_ORDER" ? "contained" : "outlined"}
+        variant={isFilterActive("LIMIT_ORDER") ? "contained" : "outlined"}
         onClick={() => onFilterChange("LIMIT_ORDER")}
-        sx={buttonStyle(activeFilter === "LIMIT_ORDER")}
+        sx={buttonStyle(isFilterActive("LIMIT_ORDER"))}
       >
         Limit Orders
       </Button>
+
       <Button
         variant={showTopWallets ? "contained" : "outlined"}
         onClick={onTopWalletsClick}

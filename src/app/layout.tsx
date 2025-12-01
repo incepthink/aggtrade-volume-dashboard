@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bot Monitoring Dashboard",
-  description: "Real-time monitoring dashboard for bot execution data",
+  title: "AggTrade Volume Dashboard",
+  description: "Real-time monitoring dashboard for executions on AggTrade.",
 };
 
 export default function RootLayout({
