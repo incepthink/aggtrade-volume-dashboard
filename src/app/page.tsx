@@ -188,7 +188,7 @@ export default function VolumePage() {
                 limitOrderVolume={data.statistics.limit_order_volume_usd}
               />
 
-              <SwapChart />
+              {swapType === undefined && !showTopWallets && <SwapChart />}
 
               {showTopWallets && walletsData ? (
                 <>
