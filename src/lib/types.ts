@@ -102,3 +102,9 @@ export interface TopWallet {
 export interface TopWalletsResponse {
   wallets: TopWallet[]
 }
+
+export interface ChartDataPoint {
+  date: string
+  totalSwaps: number
+  totalVolumeUSD: number
+}

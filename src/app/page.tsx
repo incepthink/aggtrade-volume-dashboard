@@ -6,6 +6,7 @@ import { getSushiSwapDashboard, getTopWallets } from "@/lib/api";
 import { DashboardResponse, TopWalletsResponse, SushiSwap } from "@/lib/types";
 import FilterButtons from "@/components/volume/FilterButtons";
 import StatsCards from "@/components/volume/StatsCards";
+import SwapChart from "@/components/volume/SwapChart";
 import SwapsTable from "@/components/volume/SwapsTable";
 import TopWalletsTable from "@/components/volume/TopWalletsTable";
 import LoadingState from "@/components/volume/LoadingState";
@@ -56,7 +57,7 @@ export default function VolumePage() {
   useEffect(() => {
     // Only connect when viewing CLASSIC swaps (swapType undefined = all swaps, including CLASSIC)
     if (!showTopWallets && (swapType === undefined || swapType === "CLASSIC")) {
-      const apiUrl = "https://api.aggtrade.xyz/tracking";
+      const apiUrl = "http://localhost:5000/tracking";
       const sseUrl = `${apiUrl}/sushiswap/stream`;
 
       console.log("Connecting to SSE:", sseUrl);
@@ -186,6 +187,8 @@ export default function VolumePage() {
                 limitOrderSwaps={data.statistics.limit_order_swaps}
                 limitOrderVolume={data.statistics.limit_order_volume_usd}
               />
+
+              <SwapChart />
 
               {showTopWallets && walletsData ? (
                 <>

@@ -5,7 +5,9 @@
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
       "Bash(mkdir:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(npx tsc:*)",
+      "Bash(timeout 15 npm run dev)"
     ],
     "deny": [],
     "ask": []

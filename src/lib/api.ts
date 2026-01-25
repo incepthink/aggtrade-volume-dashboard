@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { BotExecution, ExecutionDetails, PortfolioSnapshot, DashboardResponse, VolumeOverTimeResponse, TopWalletsResponse } from './types'
+import { BotExecution, ExecutionDetails, PortfolioSnapshot, DashboardResponse, VolumeOverTimeResponse, TopWalletsResponse, ChartDataPoint } from './types'
 
-const API_BASE = 'https://api.aggtrade.xyz/tracking' // http://localhost:5000/tracking https://api.aggtrade.xyz/tracking
+const API_BASE = 'https://api.aggtrade.xyz/tracking' // http://localhost:5000/tracking http://localhost:5000/tracking
+const API_BASE_SHORT = "https://api.aggtrade.xyz"
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -64,6 +65,14 @@ export async function getTopWallets(swapType?: 'CLASSIC' | 'LIMIT_ORDER', limit 
 
   const response = await api.get<TopWalletsResponse>(
     `/sushiswap/dashboard/top-wallets?${params.toString()}`
+  )
+  return response.data
+}
+
+
+export async function getSushiSwapChartData(): Promise<ChartDataPoint[]> {
+  const response = await axios.get<ChartDataPoint[]>(
+    `${API_BASE_SHORT}/hashcase-analytics/chart/sushiswap`
   )
   return response.data
 }

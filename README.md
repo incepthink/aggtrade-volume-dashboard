@@ -30,7 +30,7 @@ npm install
 Create a `.env.local` file in the root directory:
 
 ```
-NEXT_PUBLIC_API_URL=https://api.aggtrade.xyz/tracking
+NEXT_PUBLIC_API_URL=http://localhost:5000/tracking
 ```
 
 ### Development
@@ -80,11 +80,13 @@ src/
 ## Features Breakdown
 
 ### Home Page (`/`)
+
 - Table view of all bot executions
 - Shows execution ID, strategy, wallet progress, volume, status, and start time
 - Click on any execution to view details
 
 ### Execution Details Page (`/execution/[id]`)
+
 - Summary cards showing strategy, total wallets, volume, and status
 - Detailed wallet table with:
   - Wallet index and address
@@ -102,7 +104,7 @@ src/
 1. Push your code to GitHub
 2. Import project in Vercel
 3. Set environment variable:
-   - `NEXT_PUBLIC_API_URL=https://api.aggtrade.xyz/tracking`
+   - `NEXT_PUBLIC_API_URL=http://localhost:5000/tracking`
 4. Deploy
 
 Or use Vercel CLI:

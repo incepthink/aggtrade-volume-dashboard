@@ -53,6 +53,40 @@ function getRelativeTime(timestamp: string): string {
   return `${diffInYears} year${diffInYears !== 1 ? "s" : ""} ago`;
 }
 
+const glassContainerSx = {
+  background:
+    "linear-gradient(135deg, rgba(0, 245, 224, 0.05) 0%, rgba(5, 12, 25, 0.6) 100%)",
+  backdropFilter: "blur(12px)",
+  WebkitBackdropFilter: "blur(12px)",
+  border: "1px solid rgba(0, 245, 224, 0.15)",
+  boxShadow: `
+    0 4px 24px 0 rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(0, 245, 224, 0.08)
+  `,
+  overflow: "hidden",
+};
+
+const tableRowHoverSx = {
+  transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+  cursor: "pointer",
+  "&:hover": {
+    bgcolor: "rgba(0, 245, 224, 0.08)",
+    transform: "scale(1.005)",
+    boxShadow: "inset 0 0 30px rgba(0, 245, 224, 0.1)",
+    "& td": {
+      color: "#fff",
+    },
+    "& .MuiChip-root": {
+      transform: "scale(1.05)",
+      transition: "transform 0.2s ease",
+    },
+  },
+  "&:active": {
+    bgcolor: "rgba(0, 245, 224, 0.12)",
+    transform: "scale(1.002)",
+  },
+};
+
 export default function SwapsTable({ swaps, swapType }: SwapsTableProps) {
   const [, setCurrentTime] = useState(Date.now());
 
@@ -65,7 +99,7 @@ export default function SwapsTable({ swaps, swapType }: SwapsTableProps) {
   }, []);
 
   return (
-    <GlowBox>
+    <GlowBox sx={glassContainerSx}>
       <TableContainer>
         <Table>
           <TableHead>
@@ -100,14 +134,7 @@ export default function SwapsTable({ swaps, swapType }: SwapsTableProps) {
           </TableHead>
           <TableBody>
             {swaps.map((swap) => (
-              <TableRow
-                key={swap.id}
-                sx={{
-                  "&:hover": {
-                    bgcolor: "rgba(0, 245, 224, 0.05)",
-                  },
-                }}
-              >
+              <TableRow key={swap.id} sx={tableRowHoverSx}>
                 <TableCell>
                   <Chip
                     label={swapType === undefined ? "SWAP" : swap.swap_type}

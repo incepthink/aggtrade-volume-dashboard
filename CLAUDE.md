@@ -22,8 +22,9 @@ npm start
 ## Environment Setup
 
 Required environment variable in `.env.local`:
+
 ```
-NEXT_PUBLIC_API_URL=https://api.aggtrade.xyz/tracking
+NEXT_PUBLIC_API_URL=http://localhost:5000/tracking
 ```
 
 ## Architecture
@@ -31,12 +32,14 @@ NEXT_PUBLIC_API_URL=https://api.aggtrade.xyz/tracking
 ### Data Flow Pattern
 
 All pages use client-side data fetching (marked with `'use client'`):
+
 1. Components mount and trigger API calls in `useEffect`
 2. Loading states are shown while fetching
 3. Data is stored in component state
 4. Error handling displays user-friendly messages
 
 The execution details page (`/execution/[id]`) performs parallel fetches:
+
 - First fetches execution details and wallet list
 - Then fetches portfolio snapshots for ALL wallets concurrently using `Promise.all`
 - Snapshot data is stored in a Record mapping wallet address to snapshots array
@@ -44,6 +47,7 @@ The execution details page (`/execution/[id]`) performs parallel fetches:
 ### Capital Calculation Logic
 
 Capital change is calculated in `src/app/execution/[id]/page.tsx:179-186`:
+
 - **Capital Before**: First snapshot's `total_capital_usd`
 - **Capital After**: Last snapshot's `total_capital_usd`
 - **Change**: Difference in dollar amount and percentage
@@ -53,6 +57,7 @@ If a wallet has no snapshots, capital values default to 0.
 ### Type System
 
 Core types in `src/lib/types.ts`:
+
 - `BotExecution`: Top-level execution with strategy, wallet counts, volume, status
 - `WalletExecution`: Individual wallet with tokens, swaps, and status
 - `PortfolioSnapshot`: Time-based snapshot of wallet capital and token balances
@@ -63,6 +68,7 @@ All status fields use literal types (`'running' | 'completed' | 'failed'`) for t
 ### API Client
 
 `src/lib/api.ts` uses axios with base URL from environment:
+
 - `getExecutions()`: List all executions with pagination
 - `getExecutionDetails()`: Get execution + wallets for specific ID
 - `getPortfolioSnapshots()`: Get capital snapshots for specific wallet
@@ -72,6 +78,7 @@ API base defaults to `http://localhost:5000/tracking` if env var not set.
 ### Styling
 
 Uses Tailwind CSS v4 with custom configuration. Status badges use consistent color scheme:
+
 - Green: completed
 - Blue: running
 - Red: failed
