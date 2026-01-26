@@ -18,7 +18,7 @@ export default function VolumePage() {
   >(undefined);
   const [data, setData] = useState<DashboardResponse | null>(null);
   const [walletsData, setWalletsData] = useState<TopWalletsResponse | null>(
-    null
+    null,
   );
   const [showTopWallets, setShowTopWallets] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -57,7 +57,7 @@ export default function VolumePage() {
   useEffect(() => {
     // Only connect when viewing CLASSIC swaps (swapType undefined = all swaps, including CLASSIC)
     if (!showTopWallets && (swapType === undefined || swapType === "CLASSIC")) {
-      const apiUrl = "http://localhost:5000/tracking";
+      const apiUrl = "https://api.aggtrade.xyz/tracking";
       const sseUrl = `${apiUrl}/sushiswap/stream`;
 
       console.log("Connecting to SSE:", sseUrl);
@@ -131,7 +131,7 @@ export default function VolumePage() {
   }, [swapType, showTopWallets]);
 
   const handleFilterChange = (
-    filter: "CLASSIC" | "LIMIT_ORDER" | undefined
+    filter: "CLASSIC" | "LIMIT_ORDER" | undefined,
   ) => {
     setSwapType(filter);
     setShowTopWallets(false); // Reset top wallets when changing swap filter
